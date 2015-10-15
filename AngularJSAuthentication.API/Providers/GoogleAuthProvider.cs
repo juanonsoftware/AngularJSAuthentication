@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Facebook;
-using Microsoft.Owin.Security.Google;
-using Microsoft.Owin.Security.OAuth;
-using Owin;
-using System.Threading.Tasks;
+﻿using Microsoft.Owin.Security.Google;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace AngularJSAuthentication.API.Providers
 {

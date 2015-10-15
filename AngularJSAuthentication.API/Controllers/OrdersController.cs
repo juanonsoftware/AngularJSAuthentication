@@ -22,7 +22,12 @@ namespace AngularJSAuthentication.API.Controllers
 
             //var userName = principal.Claims.Where(c => c.Type == "sub").Single().Value;
 
-            return Ok(Order.CreateOrders());
+            if (User.Identity.IsAuthenticated)
+            {
+                return Ok(Order.CreateOrders());
+            }
+
+            return null;
         }
 
     }
