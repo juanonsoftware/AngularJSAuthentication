@@ -1,12 +1,12 @@
-﻿using System.Web.Http;
-using AngularJSAuthentication.API.App_Start;
+﻿using AngularJSAuthentication.API.App_Start;
 using AngularJSAuthentication.API.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Owin.Security.Providers.GitHub;
+using System.Web.Http;
 
 [assembly: OwinStartup(typeof(AngularJSAuthentication.API.Startup))]
 
@@ -15,16 +15,17 @@ namespace AngularJSAuthentication.API
     public class Startup
     {
         public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
-        public static GoogleOAuth2AuthenticationOptions GoogleAuthOptions { get; private set; }
 
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
+
+            app.UseCors(CorsOptions.AllowAll);
+
+            WebApiConfig.Register(config);
 
             ConfigureOAuth(app);
 
-            WebApiConfig.Register(config);
-            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
 
@@ -36,15 +37,13 @@ namespace AngularJSAuthentication.API
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
-
-            //Configure Google External Login
-            GoogleAuthOptions = new GoogleOAuth2AuthenticationOptions()
+            
+            app.UseGitHubAuthentication(new GitHubAuthenticationOptions()
             {
-                ClientId = "592811454485-irj0ateep1jp0fukkg9obn1rm6015qrt.apps.googleusercontent.com",
-                ClientSecret = "i7AMD7wIipImrOpL7bX7IyQ7",
-                Provider = new GoogleAuthProvider()
-            };
-            app.UseGoogleAuthentication(GoogleAuthOptions);
+                ClientId = "78e903a27192ee724f5b",
+                ClientSecret = "09aaed1ef94fda54c1430bf8b58f51b8e94733d9",
+                Provider = new GitHubCustomAuthenticationProvider()
+            });
         }
     }
 

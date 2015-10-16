@@ -4,11 +4,9 @@ using System.Web.Http;
 
 namespace AngularJSAuthentication.API.Controllers
 {
-    [RoutePrefix("api/Orders")]
     public class OrdersController : ApiController
     {
         [Authorize]
-        [Route("")]
         public IHttpActionResult Get()
         {
             //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;

@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace AngularJSAuthentication.API.Controllers
@@ -23,7 +22,7 @@ namespace AngularJSAuthentication.API.Controllers
         public IHttpActionResult GetExternalLogin(string provider, string error = null)
         {
             //string redirectUri = "http://localhost:32150/authComplete.html";
-            string redirectUri = "http://localhost:53087/authComplete.html";
+            string redirectUri = "http://localhost:53088/authComplete.html";
 
             if (error != null)
             {
@@ -74,39 +73,7 @@ namespace AngularJSAuthentication.API.Controllers
             return Redirect(redirectUri);
 
         }
-
-        [HttpGet]
-        [Route("ObtainLocalAccessToken")]
-        public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
-        {
-
-            if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(externalAccessToken))
-            {
-                return BadRequest("Provider or external access token is not sent");
-            }
-
-            //var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
-            //if (verifiedAccessToken == null)
-            //{
-            //    return BadRequest("Invalid Provider or External Access Token");
-            //}
-
-            //IdentityUser user = await _repo.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
-
-            //bool hasRegistered = user != null;
-
-            //if (!hasRegistered)
-            //{
-            //    return BadRequest("External user is not registered");
-            //}
-
-            //generate access token response
-            var accessTokenResponse = GenerateLocalAccessTokenResponse("huanhvhd");
-
-            return Ok(accessTokenResponse);
-
-        }
-
+        
         #region Helpers
 
         private JObject GenerateLocalAccessTokenResponse(string userName)
