@@ -1,11 +1,12 @@
-﻿using AngularJSAuthentication.API.App_Start;
+﻿using System.Web.Http;
+using AngularJSAuthentication.API.App_Start;
 using AngularJSAuthentication.API.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using System.Web.Http;
 
 [assembly: OwinStartup(typeof(AngularJSAuthentication.API.Startup))]
 
@@ -23,7 +24,7 @@ namespace AngularJSAuthentication.API
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
 

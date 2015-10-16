@@ -11,7 +11,6 @@ using System.Web.Http;
 
 namespace AngularJSAuthentication.API.Controllers
 {
-    [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private IAuthenticationManager Authentication
@@ -20,11 +19,8 @@ namespace AngularJSAuthentication.API.Controllers
         }
 
         // GET api/Account/ExternalLogin
-        //[OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [AllowAnonymous]
-        [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        public IHttpActionResult GetExternalLogin(string provider, string error = null)
         {
             //string redirectUri = "http://localhost:32150/authComplete.html";
             string redirectUri = "http://localhost:53087/authComplete.html";
@@ -79,7 +75,6 @@ namespace AngularJSAuthentication.API.Controllers
 
         }
 
-        [AllowAnonymous]
         [HttpGet]
         [Route("ObtainLocalAccessToken")]
         public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
